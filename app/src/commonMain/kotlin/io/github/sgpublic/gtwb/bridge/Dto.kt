@@ -3,7 +3,6 @@ package io.github.sgpublic.gtwb.bridge
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import nl.adaptivity.xmlutil.serialization.XmlElement
-import nl.adaptivity.xmlutil.serialization.XmlValue
 
 /*
 <vcs-root-instances count="1" href="/app/rest/vcs-root-instances?locator=buildType:xxx">

@@ -10,9 +10,6 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.util.*
 import io.ktor.utils.io.*
-import io.ktor.utils.io.core.*
-import kotlin.io.encoding.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
 
 var TeamCityBasicAuth: BasicAuthCredentials? = null
 var TeamCityBearerAuth: BearerTokens? = null

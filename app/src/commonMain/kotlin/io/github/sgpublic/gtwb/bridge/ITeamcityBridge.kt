@@ -94,13 +94,10 @@ object ContentConverterFactory: Converter.Factory {
         typeData: TypeData,
         ktorfit: Ktorfit
     ): Converter.SuspendResponseConverter<HttpResponse, *> {
-        return ContentConverter(typeData, ktorfit)
+        return ContentConverter()
     }
 
-    class ContentConverter(
-        private val typeData: TypeData,
-        private val ktorfit: Ktorfit,
-    ): Converter.SuspendResponseConverter<HttpResponse, Any> {
+    class ContentConverter: Converter.SuspendResponseConverter<HttpResponse, Any> {
         @Suppress("OVERRIDE_DEPRECATION")
         override suspend fun convert(response: HttpResponse): Any {
             return response
