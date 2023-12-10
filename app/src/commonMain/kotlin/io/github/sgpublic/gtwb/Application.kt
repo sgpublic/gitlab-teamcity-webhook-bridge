@@ -1,6 +1,7 @@
 package io.github.sgpublic.gtwb
 
-import io.github.sgpublic.gtwb.bridge.TeamCityAuth
+import io.github.sgpublic.gtwb.bridge.TeamCityBasicAuth
+import io.github.sgpublic.gtwb.bridge.TeamCityBearerAuth
 import io.github.sgpublic.gtwb.bridge.TeamCityHost
 import io.github.sgpublic.gtwb.plugins.configureRouting
 import io.github.sgpublic.gtwb.utils.GtwbScope
@@ -60,7 +61,8 @@ fun realMain(args: Array<String>) {
         throw IllegalArgumentException("You must set GTWB_TEAMCITY_TOKEN or --teamcity-token=xxx to run bridge!")
     }
     logger.info("Connect to Teamcity ($TeamCityHost) with user: $teamcityUser")
-    TeamCityAuth = BasicAuthCredentials(teamcityUser!!, teamcityToken!!)
+    TeamCityBasicAuth = BasicAuthCredentials(teamcityUser!!, teamcityToken!!)
+    TeamCityBearerAuth = BearerTokens(TeamCityBasicAuth?.password!!, "")
 
     GtwbScope.embeddedServer(
         factory = CIO,
