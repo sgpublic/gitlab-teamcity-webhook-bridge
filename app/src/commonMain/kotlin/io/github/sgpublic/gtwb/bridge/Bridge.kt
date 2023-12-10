@@ -1,6 +1,7 @@
 package io.github.sgpublic.gtwb.bridge
 
 import io.github.sgpublic.gtwb.logger
+import io.github.sgpublic.gtwb.utils.JsonGlobal
 import io.github.sgpublic.gtwb.utils.XmlGlobal
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.statement.*
@@ -15,10 +16,31 @@ var TeamCityBasicAuth: BasicAuthCredentials? = null
 var TeamCityBearerAuth: BearerTokens? = null
 
 class TeamcityDelegate(
-    private val id: Int
+    private val instances: List<VcsRootInstances.VcsRootInstance>
 ) {
     @OptIn(InternalAPI::class)
     suspend fun forward(call: ApplicationCall) {
+        val rawBody = call.receiveText()
+        var id = instances[0].id
+        JsonGlobal.decodeFromString<GitLabWebhookContent>(rawBody).let { body ->
+            var idByNameSpace: Int? = null
+            var idByRef: Int? = null
+            for (instance in instances) {
+                if (instance.name.contains(body.project.pathWithNameSpace)) {
+                    idByNameSpace = instance.id
+                    if (instance.name.contains(body.ref)) {
+                        idByRef = instance.id
+                    }
+                }
+            }
+            if (idByNameSpace != null) {
+                id = idByNameSpace
+            }
+            if (idByRef != null) {
+                id = idByRef
+            }
+        }
+
         val requestHeader = call.request.headers
         val resp = TeamcityWebhook.commitHookNotification(
             locator = "id:$id",
@@ -28,7 +50,7 @@ class TeamcityDelegate(
             XGitlabInstance = requestHeader.getAll("X-Gitlab-Instance"),
             XGitlabEventUUID = requestHeader.getAll("X-Gitlab-Event-UUID"),
             XGitlabToken = requestHeader.getAll("X-Gitlab-Token"),
-            call.receiveText(),
+            body = rawBody,
         )
         resp.headers.forEach { key, values ->
             for (value in values) {
@@ -66,5 +88,5 @@ suspend fun teamcityWebhook(buildConfId: String): TeamcityDelegate? {
     if (instances.count != instances.content.size) {
         throw IllegalStateException("Unknown response of vcsRootInstances selector!")
     }
-    return TeamcityDelegate(id = instances.content[0].id)
+    return TeamcityDelegate(instances = instances.content)
 }

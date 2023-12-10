@@ -1,10 +1,11 @@
 [versions]
 kotlin = "1.9.21"
 ktor = "2.3.7"
-ktorfit = "1.10.2"
 ksp = "1.9.21-1.0.15"
-buildkonfig = "0.14.0"
 kotlinx-coroutines = "1.7.3"
+kotlinx-serialization = "1.6.1"
+ktorfit = "1.10.2"
+buildkonfig = "0.14.0"
 docker = "9.4.0"
 xmlutil = "0.86.2"
 kotlin-logging = "5.1.0"
@@ -30,6 +31,8 @@ ktorfit-ksp = { group = "de.jensklingenberg.ktorfit", name = "ktorfit-ksp", vers
 
 xmlutil-core = { group = "io.github.pdvrieze.xmlutil", name = "core", version.ref = "xmlutil" }
 xmlutil-serialization = { group = "io.github.pdvrieze.xmlutil", name = "serialization", version.ref = "xmlutil" }
+kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 kotlin-logging = { group = "io.github.oshai", name = "kotlin-logging", version.ref = "kotlin-logging" }
 slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }

@@ -64,6 +64,8 @@ kotlin {
                 implementation(gtwb.ktor.plugin.logging)
 
                 implementation(gtwb.xmlutil.serialization)
+                implementation(gtwb.kotlinx.serialization.core)
+                implementation(gtwb.kotlinx.serialization.json)
             }
         }
 

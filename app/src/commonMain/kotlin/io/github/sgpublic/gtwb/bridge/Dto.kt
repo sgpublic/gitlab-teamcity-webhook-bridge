@@ -29,3 +29,17 @@ data class VcsRootInstances(
         val name: String,
     )
 }
+
+@Serializable
+data class GitLabWebhookContent(
+    @SerialName("ref")
+    val ref: String,
+    @SerialName("project")
+    val project: Project,
+) {
+    @Serializable
+    data class Project(
+        @SerialName("path_with_namespace")
+        val pathWithNameSpace: String,
+    )
+}
