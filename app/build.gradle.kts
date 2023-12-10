@@ -18,6 +18,9 @@ java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
+application {
+    mainClass = "io.github.sgpublic.gtwb.ApplicationKt"
+}
 
 kotlin {
     jvm {
@@ -26,6 +29,7 @@ kotlin {
                 useJUnitPlatform()
             }
         }
+        withJava()
         mainRun {
             mainClass = "io.github.sgpublic.gtwb.ApplicationKt"
         }
