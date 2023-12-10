@@ -14,11 +14,7 @@
 | TeamCity 用户名   | --teamcity-user=xxx  | GTWD_TEAMCITY_USER  | 用于触发 TeamCity WebHook 的用户名      | 否  |                              |  
 | TeamCity Token | --teamcity-token=xxx | GTWD_TEAMCITY_TOKEN | 用于触发 TeamCity WebHook 的用户 Token | 否  |                              |  
 
-启动后将监听 `http://<host>:<port>/{buildConfId}`，例如：
-
-假设你有一个 TeamCity 的构建配置，它的 `Build configuration ID` 为 `Test_Build`，则你可以在 GitLab 的 WebHook 中将链接设置为 `http://<host>:<port>/Test_Build`
-
-docker-compose 启动方式：
+docker-compose 启动方式示例：
 
 ```yaml
 version: '3.6'
@@ -43,3 +39,5 @@ services:
       - GTWB_TEAMCITY_TOKEN=eyJDe...
     restart: always
 ```
+
+启动后将监听 `http://<host>:<port>/{buildConfId}`，假设你有一个 TeamCity 的构建配置，它的 `Build configuration ID` 为 `Test_Build`，若使用如上配置启动，则你可以在 GitLab 的 WebHook 中将链接设置为 `http://webhookbridge:8095/Test_Build`
