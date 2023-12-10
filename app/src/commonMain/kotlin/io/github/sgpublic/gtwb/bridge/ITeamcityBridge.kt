@@ -10,6 +10,7 @@ import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.statement.*
+import io.ktor.http.*
 import io.github.sgpublic.gtwb.logger as mainLogger
 
 var TeamCityHost: String? = null
@@ -17,7 +18,7 @@ private val HttpClient: HttpClient by lazy {
     HttpClient(CIO) {
         install(Logging) {
             val headerSet = setOf(
-//                HttpHeaders.Authorization,
+                HttpHeaders.Authorization,
                 "X-Gitlab-Token",
             )
             logger = object : Logger {
